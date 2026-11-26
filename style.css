@@ -1,0 +1,366 @@
+/* =====================================================
+   STYLE.CSS - Dokumentasi Kunjungan BEI
+   Tema: merah marun, putih, aksen emas
+   ===================================================== */
+
+/* ---------- 1. Variabel warna & ukuran (ubah di sini untuk ganti tema) ---------- */
+:root {
+  --maroon: #6b1020;
+  --maroon-dark: #4a0a16;
+  --maroon-light: #8a1a2e;
+  --gold: #c9a24b;
+  --gold-soft: #e6cf94;
+  --white: #ffffff;
+  --soft: #faf6f1;        /* latar lembut untuk bagian selang-seling */
+  --text: #2b2024;
+  --muted: #6e6166;
+  --radius: 14px;
+  --shadow: 0 10px 30px rgba(74, 10, 22, 0.12);
+  --font-head: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-body: "Plus Jakarta Sans", "Segoe UI", Roboto, Arial, sans-serif;
+  --nav-h: 76px;
+}
+
+/* ---------- 2. Reset & dasar ---------- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; scroll-padding-top: var(--nav-h); }
+body {
+  font-family: var(--font-body);
+  color: var(--text);
+  background: var(--white);
+  line-height: 1.7;
+  font-size: 1rem;
+  overflow-x: hidden;
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+ul { list-style: none; }
+h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.2; color: var(--maroon-dark); }
+
+:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
+
+.container { width: min(1120px, 92%); margin-inline: auto; }
+.container.narrow { width: min(780px, 92%); }
+
+/* ---------- 3. Navbar ---------- */
+.navbar {
+  position: fixed; top: 0; left: 0; width: 100%;
+  height: var(--nav-h);
+  z-index: 100;
+  background: transparent;
+  transition: background 0.35s ease, box-shadow 0.35s ease, height 0.35s ease;
+}
+.nav-inner { display: flex; align-items: center; justify-content: space-between; height: 100%; }
+.logo {
+  font-family: var(--font-head);
+  font-weight: 700; font-size: 1.3rem;
+  color: var(--white); letter-spacing: 0.04em;
+}
+.logo span { color: var(--gold); }
+.menu { display: flex; gap: 6px; }
+.nav-link {
+  color: var(--white);
+  padding: 8px 16px; border-radius: 999px;
+  font-weight: 500; font-size: 0.95rem;
+  transition: background 0.25s, color 0.25s;
+}
+.nav-link:hover { background: rgba(255, 255, 255, 0.15); }
+.nav-link.active { color: var(--gold-soft); box-shadow: inset 0 -2px 0 var(--gold); border-radius: 0; }
+
+/* Navbar berubah saat halaman di-scroll (class "scrolled" ditambah lewat JavaScript) */
+.navbar.scrolled {
+  background: var(--maroon-dark);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  height: 64px;
+}
+
+/* Tombol hamburger (disembunyikan di layar besar) */
+.hamburger {
+  display: none;
+  background: none; border: 0; cursor: pointer;
+  width: 42px; height: 42px;
+  flex-direction: column; justify-content: center; align-items: center; gap: 6px;
+}
+.hamburger span {
+  width: 26px; height: 2px; background: var(--white);
+  transition: transform 0.3s, opacity 0.3s;
+}
+.hamburger.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+/* ---------- 4. Hero ---------- */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex; align-items: center;
+  color: var(--white);
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  /* Foto latar hero. Ganti nama file di sini jika ingin foto lain */
+  background:
+    linear-gradient(105deg, rgba(74, 10, 22, 0.92) 0%, rgba(107, 16, 32, 0.78) 45%, rgba(74, 10, 22, 0.45) 100%),
+    url("images/foto-1.jpg") center / cover no-repeat;
+  transform: scale(1.06);
+  animation: heroZoom 14s ease-out forwards;
+}
+@keyframes heroZoom { to { transform: scale(1); } }
+
+.hero-content { position: relative; padding: calc(var(--nav-h) + 40px) 0 80px; max-width: 760px; margin-left: max(4%, calc((100% - 1120px) / 2)); }
+.hero-tag {
+  display: inline-block;
+  padding: 6px 16px; margin-bottom: 22px;
+  border: 1px solid var(--gold);
+  color: var(--gold-soft);
+  border-radius: 999px; font-size: 0.9rem;
+  animation: rise 0.9s ease both;
+}
+.hero h1 {
+  color: var(--white);
+  font-size: clamp(2.2rem, 5.5vw, 4rem);
+  margin-bottom: 20px;
+  animation: rise 0.9s 0.15s ease both;
+}
+.hero-sub {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  color: rgba(255, 255, 255, 0.88);
+  max-width: 600px; margin-bottom: 34px;
+  animation: rise 0.9s 0.3s ease both;
+}
+.hero .btn { animation: rise 0.9s 0.45s ease both; }
+@keyframes rise { from { opacity: 0; transform: translateY(26px); } to { opacity: 1; transform: none; } }
+
+/* ---------- 5. Tombol ---------- */
+.btn {
+  display: inline-block;
+  padding: 14px 32px; border-radius: 999px;
+  font-weight: 600; font-size: 1rem;
+  border: 0; cursor: pointer;
+  transition: transform 0.25s, box-shadow 0.25s, background 0.25s;
+}
+.btn-gold { background: var(--gold); color: var(--maroon-dark); }
+.btn-gold:hover { background: var(--gold-soft); transform: translateY(-3px); box-shadow: 0 10px 24px rgba(0, 0, 0, 0.3); }
+
+/* ---------- 6. Bagian umum ---------- */
+.section { padding: 100px 0; }
+.section-soft { background: var(--soft); }
+.section-maroon { background: linear-gradient(160deg, var(--maroon-dark), var(--maroon)); color: var(--white); }
+
+.section-head { text-align: center; margin-bottom: 56px; }
+.section-head h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); margin-bottom: 12px; }
+.section-head h2::after {
+  content: ""; display: block;
+  width: 64px; height: 3px; margin: 14px auto 0;
+  background: var(--gold); border-radius: 2px;
+}
+.section-head p { color: var(--muted); max-width: 560px; margin-inline: auto; }
+.section-head.light h2 { color: var(--white); }
+.section-head.light p { color: rgba(255, 255, 255, 0.8); }
+
+/* ---------- 7. Tentang BEI ---------- */
+.about-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 40px; align-items: start; }
+.about-text h3 { font-size: 1.4rem; margin: 0 0 10px; }
+.about-text h3:not(:first-child) { margin-top: 28px; }
+.about-text p { color: var(--muted); }
+.about-card {
+  background: var(--maroon); color: var(--white);
+  padding: 34px; border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  border-top: 4px solid var(--gold);
+}
+.about-card h3 { color: var(--gold-soft); font-size: 1.3rem; margin-bottom: 16px; }
+.check-list li { position: relative; padding-left: 26px; margin-bottom: 12px; font-size: 0.97rem; }
+.check-list li::before {
+  content: ""; position: absolute; left: 0; top: 0.6em;
+  width: 10px; height: 10px; background: var(--gold); transform: rotate(45deg);
+}
+.sub-title { text-align: center; font-size: 1.6rem; margin: 70px 0 28px; }
+.instrument-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.instrument {
+  padding: 28px; border: 1px solid #eadfd3; border-radius: var(--radius);
+  background: var(--white);
+  transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+}
+.instrument:hover { transform: translateY(-6px); box-shadow: var(--shadow); border-color: var(--gold); }
+.instrument h4 { font-size: 1.25rem; margin-bottom: 8px; color: var(--maroon); }
+.instrument p { color: var(--muted); font-size: 0.96rem; }
+
+/* ---------- 8. Tujuan kunjungan ---------- */
+.goal-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 22px; }
+.goal {
+  padding: 28px 24px;
+  border-left: 3px solid var(--gold);
+  background: rgba(255, 255, 255, 0.07);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  transition: background 0.3s, transform 0.3s;
+}
+.goal:hover { background: rgba(255, 255, 255, 0.14); transform: translateX(6px); }
+.goal p { font-size: 1.05rem; }
+
+/* ---------- 9. Galeri ---------- */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 250px;
+  gap: 18px;
+}
+.gallery-item {
+  position: relative; overflow: hidden; cursor: pointer;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  background: var(--maroon-dark);
+}
+.gallery-item.big { grid-column: span 2; grid-row: span 2; }
+.gallery-item.wide { grid-column: span 2; }
+.gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+.gallery-item figcaption {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  padding: 40px 18px 16px;
+  color: var(--white); font-size: 0.92rem; line-height: 1.45;
+  background: linear-gradient(to top, rgba(74, 10, 22, 0.92), transparent);
+  transform: translateY(30%); opacity: 0;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}
+.gallery-item:hover img, .gallery-item:focus-visible img { transform: scale(1.08); }
+.gallery-item:hover figcaption, .gallery-item:focus-visible figcaption { transform: none; opacity: 1; }
+.gallery-item::after {
+  content: ""; position: absolute; inset: 0;
+  border: 3px solid transparent; border-radius: var(--radius);
+  transition: border-color 0.3s; pointer-events: none;
+}
+.gallery-item:hover::after { border-color: var(--gold); }
+
+/* ---------- 10. Kartu pembelajaran ---------- */
+.card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+.card {
+  background: var(--white); padding: 32px 28px;
+  border-radius: var(--radius); box-shadow: var(--shadow);
+  border-top: 4px solid var(--gold);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.card:hover { transform: translateY(-8px); box-shadow: 0 18px 40px rgba(74, 10, 22, 0.2); }
+.card h3 { font-size: 1.25rem; margin-bottom: 10px; color: var(--maroon); }
+.card p { color: var(--muted); font-size: 0.97rem; }
+
+/* ---------- 11. Pengalaman & kesimpulan ---------- */
+.story {
+  padding: 36px 40px;
+  border-left: 4px solid var(--gold);
+  background: var(--soft);
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+.story p { margin-bottom: 16px; color: var(--text); font-size: 1.05rem; }
+.story p:last-child { margin-bottom: 0; }
+
+.conclusion p { font-size: 1.08rem; margin-bottom: 18px; color: rgba(255, 255, 255, 0.92); }
+
+/* ---------- 12. Footer ---------- */
+.footer { background: #2f0610; color: rgba(255, 255, 255, 0.85); padding-top: 60px; }
+.footer-inner { display: flex; justify-content: space-between; gap: 40px; flex-wrap: wrap; padding-bottom: 40px; }
+.footer h3 { color: var(--gold); font-size: 1.4rem; margin-bottom: 6px; }
+.biodata { display: grid; gap: 10px; }
+.biodata div { display: flex; gap: 14px; }
+.biodata dt { min-width: 110px; color: var(--gold-soft); }
+.copyright {
+  text-align: center; padding: 20px 4%;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  font-size: 0.88rem; color: rgba(255, 255, 255, 0.6);
+}
+
+/* ---------- 13. Tombol kembali ke atas ---------- */
+.to-top {
+  position: fixed; right: 24px; bottom: 24px; z-index: 90;
+  width: 48px; height: 48px; border-radius: 50%;
+  border: 0; cursor: pointer;
+  background: var(--gold); color: var(--maroon-dark);
+  font-size: 1.4rem; font-weight: 700;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  opacity: 0; visibility: hidden; transform: translateY(16px);
+  transition: opacity 0.3s, transform 0.3s, visibility 0.3s, background 0.25s;
+}
+.to-top.show { opacity: 1; visibility: visible; transform: none; }
+.to-top:hover { background: var(--gold-soft); transform: translateY(-4px); }
+
+/* ---------- 14. Lightbox ---------- */
+.lightbox {
+  position: fixed; inset: 0; z-index: 200;
+  background: rgba(20, 3, 8, 0.94);
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px;
+  animation: fadeIn 0.3s ease;
+}
+.lightbox[hidden] { display: none; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.lb-figure { max-width: min(1000px, 88vw); text-align: center; }
+.lb-figure img {
+  max-height: 76vh; width: auto; margin-inline: auto;
+  border-radius: 10px; border: 2px solid var(--gold);
+  animation: zoomIn 0.35s ease;
+}
+@keyframes zoomIn { from { transform: scale(0.94); opacity: 0; } to { transform: none; opacity: 1; } }
+.lb-figure figcaption { color: var(--white); margin-top: 14px; font-size: 1rem; }
+.lb-close, .lb-nav {
+  position: absolute; background: rgba(255, 255, 255, 0.12);
+  color: var(--white); border: 0; cursor: pointer; border-radius: 50%;
+  width: 48px; height: 48px; font-size: 2rem; line-height: 1;
+  transition: background 0.25s, color 0.25s;
+}
+.lb-close:hover, .lb-nav:hover { background: var(--gold); color: var(--maroon-dark); }
+.lb-close { top: 20px; right: 20px; }
+.lb-nav { top: 50%; transform: translateY(-50%); }
+.lb-prev { left: 20px; }
+.lb-next { right: 20px; }
+
+/* ---------- 15. Animasi muncul saat scroll ---------- */
+.reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
+.reveal.visible { opacity: 1; transform: none; }
+
+/* ---------- 16. Responsif ---------- */
+@media (max-width: 960px) {
+  .about-grid { grid-template-columns: 1fr; }
+  .instrument-grid { grid-template-columns: 1fr; }
+  .gallery { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 220px; }
+  .gallery-item.big { grid-column: span 2; grid-row: span 1; }
+}
+
+@media (max-width: 768px) {
+  .section { padding: 72px 0; }
+
+  .hamburger { display: flex; }
+  /* Menu menjadi panel turun di HP */
+  .menu {
+    position: absolute; top: 100%; left: 0; width: 100%;
+    flex-direction: column; gap: 0;
+    background: var(--maroon-dark);
+    max-height: 0; overflow: hidden;
+    transition: max-height 0.4s ease;
+  }
+  .menu.open { max-height: 380px; }
+  .nav-link { display: block; padding: 16px 6%; border-radius: 0; border-top: 1px solid rgba(255, 255, 255, 0.08); }
+  .nav-link.active { box-shadow: inset 4px 0 0 var(--gold); }
+  .navbar.menu-open { background: var(--maroon-dark); }
+
+  .hero-content { margin-left: 4%; margin-right: 4%; }
+  .story { padding: 26px 22px; }
+  .footer-inner { flex-direction: column; }
+  /* Di layar sentuh, keterangan foto selalu terlihat */
+  .gallery-item figcaption { transform: none; opacity: 1; font-size: 0.85rem; padding-top: 30px; }
+}
+
+@media (max-width: 520px) {
+  .gallery { grid-template-columns: 1fr; grid-auto-rows: 230px; }
+  .gallery-item.big, .gallery-item.wide { grid-column: span 1; }
+  .biodata div { flex-direction: column; gap: 0; }
+  .lb-nav { top: auto; bottom: 20px; transform: none; }
+  .lb-prev { left: calc(50% - 60px); }
+  .lb-next { right: calc(50% - 60px); }
+}
+
+/* Hormati pengguna yang mengurangi animasi */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1; transform: none; }
+}
